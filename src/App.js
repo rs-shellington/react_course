@@ -19,8 +19,8 @@ class App extends Component {
           <p>-RSS-</p>
           <Test/>
           <Dumb/>
-          <Person/>
-          <Person/>
+          <Person name='Scott' age='57'>Hobbies: (Bad) Golf</Person>
+          <Person name='Kylie' age='26'/>
           <a
             className="App-link"
             href="https://reactjs.org"
