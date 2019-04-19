@@ -4,6 +4,7 @@ import './App.css';
 
 import Test from './Test/Test'
 import Dumb from './Dumb/Dumb'
+import Person from './Person/Person'
 
 class App extends Component {
   render() {
@@ -18,6 +19,8 @@ class App extends Component {
           <p>-RSS-</p>
           <Test/>
           <Dumb/>
+          <Person/>
+          <Person/>
           <a
             className="App-link"
             href="https://reactjs.org"
