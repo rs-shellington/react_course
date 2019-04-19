@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import Test from './Test/Test'
+import Dumb from './Dumb/Dumb'
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
 
           <p>-RSS-</p>
           <Test/>
+          <Dumb/>
           <a
             className="App-link"
             href="https://reactjs.org"
