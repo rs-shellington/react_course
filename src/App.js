@@ -9,22 +9,33 @@ import Person from './Person/Person'
 class App extends Component {
 
   state = {
-    persons: [{name: 'Scott', age: 57},
-              {name: 'Kylie', age: 26},
-              {name: 'Kathy', age: 59}
+    persons: [{ name: 'Scott', age: 57 },
+    { name: 'Kylie', age: 26 },
+    { name: 'Kathy', age: 59 }
     ]
   }
 
-  switchNameHandler = () =>{
-  
+  switchNameHandler = () => {
+
     console.log('click')
     // Wrong: this.state.persons[2].age = '[Redacted]';
     this.setState(
-      {persons:[{name: 'Scott', age: 57},
-      {name: 'Kylie', age: 26},
-      {name: 'Kathy', age: '[Redacted]'}]})
+      {
+        persons: [{ name: 'Scott', age: 57 },
+        { name: 'Kylie', age: 26 },
+        { name: 'Kathy', age: '[Redacted]' }]
+      })
 
   };
+
+  nameChangedHandler = (event) => {
+    this.setState(
+      {
+        persons: [{ name: 'Scott', age: 57 },
+        { name: event.target.value, age: 26 },
+        { name: 'Kathy', age: 59 }]
+      })
+  }
 
   render() {
     return (
@@ -36,14 +47,25 @@ class App extends Component {
           </p>
 
           <p>-RSS-</p>
-          <Test/>
-          <Dumb/>
+          <Test />
+          <Dumb />
           <button onClick={this.switchNameHandler}>Switch Name</button>
-          <Person name={this.state.persons[0].name} age={this.state.persons[0].age}>Hobbies: (Bad) Golf</Person>
-          <Person name={this.state.persons[1].name} age={this.state.persons[1].age}/>
-          <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+          <Person 
+             name={this.state.persons[0].name} 
+             age={this.state.persons[0].age}>Hobbies: (Bad) Golf
+             
+          </Person>
           
-        
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            change={this.nameChangedHandler} />
+
+          <Person 
+             name={this.state.persons[2].name} 
+             age={this.state.persons[2].age} 
+
+          />
           <a
             className="App-link"
             href="https://reactjs.org"
