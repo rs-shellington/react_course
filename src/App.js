@@ -9,11 +9,22 @@ import Person from './Person/Person'
 class App extends Component {
 
   state = {
-    persons: [{ name: 'Scott', age: 57 },
-    { name: 'Kylie', age: 26 },
-    { name: 'Kathy', age: 59 }
+    persons: [
+    { id: 'rss', name: 'Scott', age: 57 },
+    { id: 'kes', name: 'Kylie', age: 26 },
+    { id: 'kms', name: 'Kathy', age: 59 }
     ],
-    showPersons: false,
+    showPersons: true,
+  }
+
+  deletePersonHandler = (index) => {
+
+    console.log('delete '+index);
+    //const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(index,1);
+    this.setState({persons:persons});
+
   }
 
   switchNameHandler = () => {
@@ -32,12 +43,24 @@ class App extends Component {
 
   };
 
-  nameChangedHandler = (event) => {
+  nameChangedHandler = (event, id) => {
+
+    const personIndex = this.state.persons.findIndex( p => 
+      {return p.id === id}
+      )
+    
+    const person = {
+      ...this.state.persons[personIndex]
+    }
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    person.name = event.target.value;
+
     this.setState(
       {
-        persons: [{ name: 'Scott', age: 57 },
-        { name: event.target.value, age: 26 },
-        { name: 'Kathy', age: 59 }]
+        persons: persons
       })
   }
 
@@ -46,6 +69,7 @@ class App extends Component {
     const style = {
 
       backgroundColor: 'white',
+      background: 'green',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -58,24 +82,29 @@ class App extends Component {
     if(this.state.showPersons) {
       persons = (
         <div>
-          <Person 
-             name={this.state.persons[0].name} 
-             age={this.state.persons[0].age}>Hobbies: (Bad) Golf
-             
-          </Person>
           
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            change={this.nameChangedHandler} />
+          {this.state.persons.map((person, index) => {
+            return <Person click={() => this.deletePersonHandler(index)} 
+                    name={person.name} 
+                    age={person.age} 
+                    change={(event) => this.nameChangedHandler(event,person.id)}
+                    key={person.id}/>
+            })
+          }
 
-          <Person 
-             name={this.state.persons[2].name} 
-             age={this.state.persons[2].age} 
-
-          />
+          
         </div>
       );
+
+      style.background = 'red';
+
+    }
+
+    const classes = [];
+
+    if(this.state.persons.length <= 2) {
+      classes.push('red');
+      classes.push('bold');
     }
 
     return (
@@ -83,8 +112,8 @@ class App extends Component {
         <header className="App-header">
           
 
-          <p>-RSS-</p>
-          <Test />
+          <p className={classes.join(' ')}>-RSS-</p>
+          <Test name='TestComponent'/>
           <Dumb />
           <button 
           style={style}

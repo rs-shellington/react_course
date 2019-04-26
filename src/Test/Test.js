@@ -7,7 +7,7 @@ class Test extends Component {
         return(
             <div>
             <p>Test</p>
-            <p>Right!</p>
+            <p>Right! {this.props.name}</p>
             
             
             </div>
