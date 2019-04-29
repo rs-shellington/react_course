@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
+import Radium, {StyleRoot} from 'radium';
 import './App.css';
+
 
 import Test from './Test/Test'
 import Dumb from './Dumb/Dumb'
@@ -35,9 +36,9 @@ class App extends Component {
 
     this.setState(
       {
-        persons: [{ name: 'Scott', age: 57 },
-        { name: 'Kylie', age: 26 },
-        { name: 'Kathy', age: '[Redacted]' }],
+        persons: [{id: 'rss',  name: 'Scott', age: 57 },
+        { id: 'kes', name: 'Kylie', age: 26 },
+        { id: 'kms', name: 'Kathy', age: '[Redacted]' }],
         showPersons: toggle,
       })
 
@@ -68,12 +69,16 @@ class App extends Component {
 
     const style = {
 
-      backgroundColor: 'white',
-      background: 'green',
+      
+      backgroundColor: 'green',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
+      ':hover' : {
+        backgroundColor:'lightgreen',
+        color:'black',
+      }
 
     }
 
@@ -96,7 +101,12 @@ class App extends Component {
         </div>
       );
 
-      style.background = 'red';
+      style.backgroundColor = 'red';
+
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black',
+      }
 
     }
 
@@ -108,6 +118,7 @@ class App extends Component {
     }
 
     return (
+      <StyleRoot>
       <div className="App">
         <header className="App-header">
           
@@ -129,8 +140,9 @@ class App extends Component {
           </a>
         </header>
       </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
