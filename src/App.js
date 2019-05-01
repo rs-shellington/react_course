@@ -3,11 +3,16 @@ import Radium, {StyleRoot} from 'radium';
 import './App.css';
 
 
-import Test from './Test/Test'
-import Dumb from './Dumb/Dumb'
-import Person from './Person/Person'
+import Test from './components/Test/Test'
+import Dumb from './components/Dumb/Dumb'
+import Persons from './components/Persons/Persons'
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    console.log('App.js constructor');
+  }
 
   state = {
     persons: [
@@ -16,6 +21,16 @@ class App extends Component {
     { id: 'kms', name: 'Kathy', age: 59 }
     ],
     showPersons: true,
+  }
+
+  static getDerivedStateFromProps(props, state) {
+
+    console.log('getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
   }
 
   deletePersonHandler = (index) => {
@@ -87,15 +102,11 @@ class App extends Component {
     if(this.state.showPersons) {
       persons = (
         <div>
+          <Persons persons={this.state.persons}
+                   clicked={this.deletePersonHandler}
+                   changed={this.nameChangedHandler}/>
+
           
-          {this.state.persons.map((person, index) => {
-            return <Person click={() => this.deletePersonHandler(index)} 
-                    name={person.name} 
-                    age={person.age} 
-                    change={(event) => this.nameChangedHandler(event,person.id)}
-                    key={person.id}/>
-            })
-          }
 
           
         </div>
